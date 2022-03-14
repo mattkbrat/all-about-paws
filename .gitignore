@@ -1,0 +1,8 @@
+remix/node_modules
+
+/remix/.cache
+/remix/public/build
+.env
+/remix/build/
+/remix/.idea/
+/.idea
