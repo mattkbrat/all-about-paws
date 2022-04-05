@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from './client'
 import Auth from './Auth'
 import Account from './Account'
+import Header from './Header';
 
 export default () => {
     const [session, setSession] = useState(null)
@@ -17,6 +18,7 @@ export default () => {
 
     return (
         <div className="container" style={{ padding: '50px 0 100px 0' }}>
+            <Header />
             {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
         </div>
     )
