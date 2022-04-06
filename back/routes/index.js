@@ -1,16 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/home', function(req, res, next) {
+/* route for api calls (any new calls should start with "/api/..." */
+router.get('/api/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-{/* router.get('/end', (req, res) => {
+/* any url the api doesn't recognize routes to our single page (index.html) */
+router.get('*', (req, res) => {
   res.sendFile(
-    __dirname, "..", "build", "index.html"
+    path.join(
+      __dirname + "/front/public/index.html"
+    )
   )
-}) */}
-
+})
 
 module.exports = router;

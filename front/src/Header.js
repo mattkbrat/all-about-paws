@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import './Header.css';
-import Account from './Account';
 
 function Header() {
     return (
@@ -12,6 +11,9 @@ function Header() {
                 </li>
                 <li>
                     <Link to="/account">Account</Link>
+                </li>
+                <li>
+                    <Link to="/auth">Login/Signup</Link>
                 </li>
             </ul>
         </div >
