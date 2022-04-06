@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from './client'
 import Auth from './Auth'
 import Account from './Account'
+import SubmitPet from "./SubmitPet";
 
 export default () => {
     const [session, setSession] = useState(null)
@@ -16,8 +17,9 @@ export default () => {
     }, [])
 
     return (
-        <div className="container" style={{ padding: '50px 0 100px 0' }}>
-            {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
-        </div>
+        // <div className="container" style={{ padding: '50px 0 100px 0' }}>
+        //     {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+        // </div>
+        <SubmitPet />
     )
 }
