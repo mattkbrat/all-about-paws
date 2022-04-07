@@ -1,7 +1,7 @@
-import './index.css'
+import './App.css'
 import { useState, useEffect } from 'react'
 import { supabase } from './client'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Auth from './Auth'
 import Account from './Account'
 import Header from './Header';
@@ -21,8 +21,8 @@ export default () => {
 
     return (
         <Router>
+            <div><Header /></div>
             <div className="container" style={{ padding: '50px 0 100px 0' }}>
-                <Header />
                 <Routes>
                     <Route exact path="/home" element={<Home />}/>
                     <Route exact path="/account"element={<Account />}/>
