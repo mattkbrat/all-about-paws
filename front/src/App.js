@@ -7,6 +7,7 @@ import Account from './Account'
 import Header from './Header';
 import Home from './Home';
 import SubmitPet from "./SubmitPet";
+import Schedule from './Schedule';
 
 export default () => {
     const [session, setSession] = useState(null)
@@ -28,6 +29,7 @@ export default () => {
                     <Route exact path="/account"element={<Account />}/>
                     <Route exact path="/auth" element={!session ? <Auth /> : <Account key={session.user.id} session={session} />}/>
                     <Route exact path="/pets" element={!session ? <Auth /> : <SubmitPet />}/>
+                    <Route exact path="/schedule" element={!session ? <Auth /> : <Schedule />}/>
                     <Route path="*" element={<Home />}/>
                 </Routes >
             </div >

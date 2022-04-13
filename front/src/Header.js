@@ -15,6 +15,9 @@ function Header() {
                         <Link to="/auth">Account</Link>
                     </li>
                     <li>
+                        <Link to="/schedule">Schedule</Link>
+                    </li>
+                    <li>
                         <Link to="/account">Login/Signup</Link>
                     </li>
                     <li>
