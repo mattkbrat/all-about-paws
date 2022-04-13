@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from "./client";
+import { supabase } from "../client";
 
 const Account = ({ session }) => {
     const [loading, setLoading] = useState(true)
