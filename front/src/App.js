@@ -23,7 +23,7 @@ const App = () => {
     }, [])
 
     return (
-        <div className="container" style={{padding: '50px 0 100px 0'}}>
+        <div className="container">
             <Header/>
             <main>
             <Routes>
