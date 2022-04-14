@@ -12,7 +12,7 @@
 //  Should clients be able to edit their pets?
 
 import { useState, useEffect } from 'react';
-import { supabase } from "./client";
+import { supabase } from "../client";
 import { Select } from '@supabase/ui'
 
 const SubmitPet = ({ session }) =>{

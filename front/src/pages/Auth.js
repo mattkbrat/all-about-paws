@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { supabase } from "./client";
+import { supabase } from "../client";
 
 export default function Auth(){
+
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
 
@@ -10,6 +11,7 @@ export default function Auth(){
 
         try {
             setLoading(true)
+
             const {error} = await supabase.auth.signIn({email})
             if (error) throw error
             alert('Check your email for the login link!')

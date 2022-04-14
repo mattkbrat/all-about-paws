@@ -1,12 +1,12 @@
 import React from 'react';
-import './Header.css';
+import '../components/Header.css';
+
 function Home() {
     return (
         <div className='body'>
-            <p>Weclome Home</p>
+            <p>Welcome Home</p>
         </div>
     );
 }
-
 
 export default Home;
