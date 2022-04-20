@@ -14,6 +14,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from "../client";
 import { Select } from '@supabase/ui'
+import './SubmitPet.css'
 
 const SubmitPet = ({ session }) =>{
     const [loading, setLoading] = useState(false);
