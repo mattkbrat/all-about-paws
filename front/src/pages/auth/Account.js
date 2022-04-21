@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import { supabase } from "../client";
+import {useState, useEffect, useContext} from 'react'
+import { supabase } from "../../client";
 
-const Account = ({ session }) => {
+const Account = ( ) => {
     const [loading, setLoading] = useState(true)
     const [first_name, setFirstName] = useState(null)
     const [last_name, setLastName] = useState(null)
@@ -10,8 +10,10 @@ const Account = ({ session }) => {
     const [state_address, setState] = useState(null)
     const [zip_address, setZip] = useState(null)
     const [phone_no, setPhone] = useState(null)
-    const [username, setUsername] = useState(null)
     const [avatar_url, setAvatarUrl] = useState(null)
+
+    const session = supabase.auth.session()
+
 
     useEffect(() => {
         getProfile()
@@ -21,6 +23,7 @@ const Account = ({ session }) => {
         try {
             setLoading(true)
             const user = supabase.auth.user()
+            console.log("User: ", user)
 
             let { data, error, status } = await supabase
                 .from('profiles')
@@ -33,7 +36,6 @@ const Account = ({ session }) => {
             }
 
             if (data) {
-                setUsername(data.email)
                 setFirstName(data.first_name)
                 setLastName(data.last_name)
                 setStreet(data.street_address)
