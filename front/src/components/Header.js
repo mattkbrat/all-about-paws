@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import './Header.css';
 import {supabase} from "../client";
+import PawCircle from "../components/images/PawCircle.png";
+
 
 function Header() {
 
     return (
         <div className = "navigation">
-            <div className="company-name"><h1>All About Paws</h1></div>
+            <div className="company-name" style={{display:"flex", alignItems:"center"}}>
+                <img style={{maxHeight:"50px", margin:"1em"}} src={PawCircle} alt="paw-circle" className="paw-circle"/>
+                <h1>All About Paws</h1>
+            </div>
             {supabase.auth.session() ? (
                 <nav className="navigation-menu">
                     <ul>
@@ -38,7 +43,7 @@ function Header() {
                         <li><Link to="/home">Home</Link></li>
                         <li><Link to="/contact">Contact</Link></li>
                         <li><Link to="/auth">Login</Link></li>
-                        <li><Link to="password-reset">Reset Password</Link></li>
+                        {/*<li><Link to="password-reset">Reset Password</Link></li>*/}
                     </ul>
                 </nav>
             )}

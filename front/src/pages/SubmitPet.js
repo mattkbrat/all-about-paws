@@ -14,7 +14,7 @@
 import {useState, useEffect, useContext} from 'react';
 import { supabase } from "../client";
 import { Select } from '@supabase/ui'
-import './SubmitPet.css'
+import '../components/form.css'
 import {SupabaseContext} from "../SupabaseContext";
 import { useNavigate } from "react-router-dom";
 
@@ -147,13 +147,13 @@ const SubmitPet = ({ session }) =>{
         }
 
         return (
-            <div aria-live="polite">
+            <div className="form" aria-live="polite">
                 {loading ? (
                     'Submitting pet...'
                 ) : (
                     <form onSubmit={updatePet} className="form-widget">
-                        <div>
-                            <label htmlFor='profiles'>Owner</label>
+                        <div className="content">
+                        <div className="input-field">
                             <Select
                                 label="Select owner" name="profiles" id="profiles"
                                 value={owner_id} onChange={(e) => setOwnerId(e.target.value)}>
@@ -163,121 +163,104 @@ const SubmitPet = ({ session }) =>{
                                     </option>
                                 ))}</Select>
                         </div>
-                        <div>
-                            <label htmlFor="name">Name</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
+                                placeholder="Name"
+                                required
                                 value={name}
                                 onChange={e => setName(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="breed">Breed</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="breed"
                                 name="breed"
+                                placeholder="Breed"
+                                required
                                 value={breed}
                                 onChange={e => setBreed(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="condition">Condition</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="condition"
+                                placeholder="Condition"
                                 name="condition"
                                 value={condition}
                                 onChange={e => setCondition(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="special_instructions">Special Instructions</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="special_instructions"
+                                placeholder="Special Instructions"
                                 name="special_instructions"
                                 value={special_instructions}
                                 onChange={e => setSpecialInstructions(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="picture">Picture</label>
-                            <input
-                                type="text"
-                                id="picture"
-                                name="picture"
-                                value={picture}
-                                onChange={e => setPicture(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="temperament">Temperament</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="temperament"
                                 name="temperament"
+                                placeholder="Temperament"
                                 value={temperament}
                                 onChange={e => setTemperament(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="clip">Clip</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="clip"
                                 name="clip"
+                                placeholder="Clip"
                                 value={clip}
                                 onChange={e => setClip(e.target.value)}
                             />
                         </div>
-
-                        <div>
-                            <label htmlFor="age">Age</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="age"
                                 name="age"
+                                placeholder="Age (years)"
                                 value={age}
                                 onChange={e => setAge(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="size">Size</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="size"
                                 name="size"
+                                placeholder="Size (inches)"
                                 value={size}
                                 onChange={e => setSize(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="weight">Weight</label>
+                        <div className="input-field">
                             <input
                                 type="text"
                                 id="weight"
                                 name="weight"
+                                placeholder="Weight (lbs)"
                                 value={weight}
                                 onChange={e => setWeight(e.target.value)}
                             />
                         </div>
-                        <div>
-                            <label htmlFor="image">Image</label>
-                            <input
-                                type="text"
-                                id="image"
-                                name="image"
-                                value={image}
-                                onChange={e => setImage(e.target.value)}
-                            />
                         </div>
-
+                        <div className="action">
                         <button className="button block primary" disabled={loading}>
                             Submit
                         </button>
+                        </div>
 
                     </form>
                 )}

@@ -67,7 +67,7 @@ export default function Schedule() {
 
 
     return (
-        <div>
+        <div style={{background:"#fff"}}>
             {loading || adding ? (
                 "Loading..."
             ) : (

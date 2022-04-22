@@ -7,7 +7,7 @@
     padding: 0.5rem 0rem;
     border-radius: 3px;
     background: rgb(126, 69, 162);
-    background: linear-gradient(0deg, rgba(127,69,162,1) 0%, rgba(225,148,233,1) 100%);
+    background: linear-gradient(0deg, #cdb4db 0%, #ffc8dd 100%);
     color: black;
     box-shadow: 5px 8px 2px 0 rgba(9, 9, 9, 0.23);
     font-family: Rockwell, Arial, Helvetica, sans-serif;
@@ -44,8 +44,7 @@
 /* Navbar container */
 .navbar {
     overflow: hidden;
-    background-color: #333;
-    font-family: Arial;
+    background-color: #ffc8dd;
 }
 
 /* Links inside the navbar */

@@ -1,4 +1,5 @@
 import './App.css'
+import './index.css'
 import { useState, useEffect } from 'react'
 import { supabase } from './client'
 
@@ -11,6 +12,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import SubmitPet from "./pages/SubmitPet";
 import Schedule from './pages/Schedule';
+import Contact from './pages/Contact';
 import {ItemsContextProvider} from "./SupabaseContext";
 
 
@@ -40,6 +42,7 @@ const App = () => {
                         <Route exact path="/pets" element={ <SubmitPet/>}/>
                         <Route exact path="/schedule" element={<Schedule/>}/>
                         <Route exact path="/logout" element={<Logout/>}/>
+                        <Route exact path="/contact" element={<Contact/>}/>
                         {/*<Route exact path={'/password-reset'} element={<PasswordReset/>}/>*/}
                         <Route path="*" element={<Home/>}/>
                     </Routes>
