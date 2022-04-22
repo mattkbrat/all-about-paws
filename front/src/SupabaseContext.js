@@ -11,6 +11,7 @@ export function ItemsContextProvider(props) {
     const [appointments, setAppointments] = useState([]);
     const [pets, setPets] = useState([]);
     const [client, setClient] = useState(null);
+    const [error, setError] = useState(null);
 
 
     const [activeItems, setActiveItems] = useState([]);
@@ -27,7 +28,8 @@ export function ItemsContextProvider(props) {
 
 
         } catch (error) {
-            alert(error.message);
+            console.log(error.message)
+            setError(error.message);
         } finally {
             setLoading(false);
         }
@@ -42,9 +44,11 @@ export function ItemsContextProvider(props) {
             await supabase.auth.signOut();
             alert("You have been logged out!");
         } catch (error) {
-            alert(error.message);
+            console.log(error.message)
+            setError(error.message);
         } finally {
             setLoading(false);
+            setError("");
         }
     };
 
@@ -71,9 +75,11 @@ export function ItemsContextProvider(props) {
 
             if (error) throw error; // Throw error if there is one
         } catch (error) {
-            alert(error.message);
+            console.log(error.message)
+            setError(error.message);
         } finally {
             setLoading(false);
+            setError("");
         }
     };
 
@@ -96,9 +102,11 @@ export function ItemsContextProvider(props) {
             console.log("Tried to fetch logged in profile. Result: ", profile);
 
         } catch (error) {
-            alert(error.message);
+            console.log(error.message)
+            setError(error.message);
         } finally {
             setLoading(false);
+            setError("");
         }
     };
 
@@ -126,9 +134,12 @@ export function ItemsContextProvider(props) {
                 }
             )
         } catch (error) {
-            alert("Error parsing appointments, "+error.message);
+            console.log(error.message)
+            setError("Error parsing appointments, "+error.message);
+        } finally {
+            setError("")
+            return parsedAppointments;
         }
-        return parsedAppointments;
     }
 
     // Get all appointments from the database
@@ -139,7 +150,7 @@ export function ItemsContextProvider(props) {
             let { data: response, error } = await supabase
                 .from('appointments')
                 .select('event_id, start, end, pet_id, status, notes, ' +
-                    'pets (owner_id, special_instructions, name, profiles (first_name, last_name))')
+                    'pets:pet_id (owner_id, special_instructions, name, profiles:owner_id (first_name, last_name))')
 
             if (error) throw error; // Throw error if there is one
             console.log("Tried to fetch appointments. Result: ", response);
@@ -150,9 +161,11 @@ export function ItemsContextProvider(props) {
             console.log("Tried to fetch appointments. Result: ", response);
 
         } catch (error) {
-            alert(error.message);
+            console.log(error.message)
+            setError(error.message);
         } finally {
             setLoading(false);
+            setError("");
         }
     };
 
@@ -163,7 +176,7 @@ export function ItemsContextProvider(props) {
             // Get all appointments from the database
             let { data: response, error } = await supabase
                 .from('pets')
-                .select('*, profiles (first_name, last_name)')
+                .select('*, profiles:owner_id (first_name, last_name)')
 
             if (error) throw error; // Throw error if there is one
             console.log("Tried to fetch pets. Result: ", response);
@@ -181,9 +194,11 @@ export function ItemsContextProvider(props) {
             console.log("Tried to fetch pets. Result: ", response);
 
         } catch (error) {
-            alert(error.message);
+            console.log(error.message)
+            setError(error.message);
         } finally {
             setLoading(false);
+            setError("");
         }
     };
 
@@ -209,9 +224,11 @@ export function ItemsContextProvider(props) {
             setAppointments(appointmentParser(response));
 
         } catch (error) {
-            alert(error.message);
+            console.log(error.message)
+            setError(error.message);
         } finally {
             setLoading(false);
+            setError("");
         }
     }
 
@@ -243,7 +260,6 @@ export function ItemsContextProvider(props) {
                 if (error) throw error; // Throw error if there is one
 
                 // Fetch the appointments again
-                await fetchAppointments();
 
             } else if (action === "create") {
 
@@ -252,16 +268,16 @@ export function ItemsContextProvider(props) {
                     .insert({
                         groomer: "f468a036-82aa-44e4-850b-35ff2732b939",
                         pet_id: event.pet_id,
+                        notes: event.notes,
                         updated_at: new Date(),
                         status: event.status,
                         end: event.end,
-                        start: event.start
+                        start: event.start,
+                        client_id: supabase.auth.user().id,
                 })
 
                 if (error) throw error; // Throw error if there is one
             }
-
-            return event;
 
             /**
              * Make sure to return 4 mandatory fields:
@@ -273,11 +289,16 @@ export function ItemsContextProvider(props) {
              */
 
         } catch (error) {
-            alert(error.message);
+            console.log("Error encountered when updating appointment: ", error);
+            setError(error.message);
         } finally {
-            setAdding(false);
+            setLoading(false);
+            await fetchAppointments();
+            setError("");
+            return event;
         }
     }
+
 
 
     return (
@@ -293,6 +314,8 @@ export function ItemsContextProvider(props) {
                 fetchClientAppointments,
                 fetchClient,
                 updateClient,
+                setError,
+                error,
                 pets,
                 fetchPets,
                 activeItems,

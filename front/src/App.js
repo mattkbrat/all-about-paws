@@ -7,6 +7,7 @@ import Login from './pages/auth/Login'
 import Logout from "./pages/auth/Logout";
 import Account from './pages/auth/Account'
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import SubmitPet from "./pages/SubmitPet";
 import Schedule from './pages/Schedule';
@@ -35,14 +36,15 @@ const App = () => {
                         <Route exact path="/" element={<Home/>}/>
                         <Route exact path="/home" element={<Home/>}/>
                         <Route exact path="/auth" element={<Login/>}/>
-                        <Route exact path="/account" element={session ? <Login/> : <Account/>}/>
-                        <Route exact path="/pets" element={session ? <Login/> : <SubmitPet/>}/>
-                        <Route exact path="/schedule" element={session ? <Schedule/> : <Schedule/>}/>
-                        <Route exact path="/logout" element={session ? <Login/> : <Logout/>}/>
+                        <Route exact path="/account" element={<Account/>}/>
+                        <Route exact path="/pets" element={ <SubmitPet/>}/>
+                        <Route exact path="/schedule" element={<Schedule/>}/>
+                        <Route exact path="/logout" element={<Logout/>}/>
                         {/*<Route exact path={'/password-reset'} element={<PasswordReset/>}/>*/}
                         <Route path="*" element={<Home/>}/>
                     </Routes>
                 </main>
+                <Footer/>
             </div>
         </ItemsContextProvider>
     );

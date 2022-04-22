@@ -16,19 +16,19 @@ function Header() {
                         <li><Link to="/schedule">Schedule</Link></li>
                         <li><Link to="/account">Account</Link></li>
 
-                        <div className="navbar">
-                            {/*<a href="#home">Home</a>*/}
-                            {/*<a href="#news">News</a>*/}
-                            <div className="dropdown">
-                                <button className="dropbtn">Dropdown
-                                    <i className="fa fa-caret-down"></i>
-                                </button>
-                                <div className="dropdown-content">
-                                    <Link to="/logout">Logout</Link>
-                                    <Link to="/password-reset">Reset Password</Link>
-                                </div>
-                            </div>
-                        </div>
+                        {/*<div className="navbar">*/}
+                        {/*    /!*<a href="#home">Home</a>*!/*/}
+                        {/*    /!*<a href="#news">News</a>*!/*/}
+                        {/*    /!*<div className="dropdown">*!/*/}
+                        {/*    /!*    <button className="dropbtn">Dropdown*!/*/}
+                        {/*    /!*        <i className="fa fa-caret-down"></i>*!/*/}
+                        {/*    /!*    </button>*!/*/}
+                        {/*    /!*    <div className="dropdown-content">*!/*/}
+                        {/*    /!*        <Link to="/logout">Logout</Link>*!/*/}
+                        {/*    /!*        <Link to="/password-reset">Reset Password</Link>*!/*/}
+                        {/*    /!*    </div>*!/*/}
+                        {/*    /!*</div>*!/*/}
+                        {/*</div>*/}
 
                     </ul>
                 </nav>

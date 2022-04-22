@@ -7,18 +7,19 @@ import {SupabaseContext} from "../../SupabaseContext";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const { loading, logInAccount } = useContext(SupabaseContext);
+  const { loading, logIn } = useContext(SupabaseContext);
 
   let navigate = useNavigate();
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    logInAccount(email);
+    logIn(email);
     setLoggedIn(true);
   };
 
   useEffect(() => {
+    console.log(supabase.auth.user())
     if (supabase.auth.user() !== null) {
       return navigate("/")
     }

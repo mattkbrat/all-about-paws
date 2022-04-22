@@ -39,7 +39,7 @@ function Home() {
                                             </thead>
                                             <tbody>
                                             {appointments.map(appointment => (
-                                                <tr key={appointment.id}>
+                                                <tr key={appointment.event_id}>
                                                     <td>{String(appointment.start)}</td>
                                                     <td>{appointment.status}</td>
                                                 </tr>

@@ -83,7 +83,7 @@ export default function Schedule() {
                             weekStartOn: 1,
                             startHour: 7,
                             endHour: 15,
-                            step: 15,
+                            step: 60,
                         }}
                         fields={[
                             {

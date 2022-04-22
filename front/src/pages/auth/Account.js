@@ -1,5 +1,6 @@
-import {useState, useEffect, useContext} from 'react'
+import {useState, useEffect} from 'react'
 import { supabase } from "../../client";
+import {useNavigate} from "react-router-dom";
 
 const Account = ( ) => {
     const [loading, setLoading] = useState(true)
@@ -13,10 +14,14 @@ const Account = ( ) => {
     const [avatar_url, setAvatarUrl] = useState(null)
 
     const session = supabase.auth.session()
+    let navigate = useNavigate();
 
 
     useEffect(() => {
         getProfile()
+        if (supabase.auth.user() == null) {
+            return navigate("/login")
+        }
     }, [session])
 
     const getProfile = async () => {
@@ -176,12 +181,13 @@ const Account = ( ) => {
                         <button className="button block primary" disabled={loading}>
                             Update profile
                         </button>
+                        <button type="button" className="button block" onClick={() => supabase.auth.signOut()}>
+                            Sign Out
+                        </button>
                     </div>
                 </form>
             )}
-            <button type="button" className="button block" onClick={() => supabase.auth.signOut()}>
-                Sign Out
-            </button>
+
         </div>
     )
 }

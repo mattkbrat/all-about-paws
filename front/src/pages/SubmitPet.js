@@ -11,14 +11,15 @@
 //  Only admins should be able to insert pets.
 //  Should clients be able to edit their pets?
 
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { supabase } from "../client";
 import { Select } from '@supabase/ui'
 import './SubmitPet.css'
+import {SupabaseContext} from "../SupabaseContext";
+import { useNavigate } from "react-router-dom";
 
 const SubmitPet = ({ session }) =>{
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
 
     // Name, breed, condition, special_instructions, picture, temperament, clip, age, size, weight, description, image, last_seen, owner_id
     const [name, setName] = useState('');
@@ -37,7 +38,16 @@ const SubmitPet = ({ session }) =>{
     const [weight, setWeight] = useState('');
     const [owners, setOwners] = useState([]);
 
+    let navigate = useNavigate();
+
+    const {
+        setError,
+    } = useContext(SupabaseContext);
+
     useEffect(() => {
+        if (supabase.auth.user() == null) {
+            return navigate("/login")
+        }
         getPet();
     }, [session]);
 
@@ -63,7 +73,7 @@ const SubmitPet = ({ session }) =>{
             }
 
             if (error_profiles) {
-                throw new Error(error_profiles.message);
+                setError(error_profiles.message);
             }
 
             let { data, error} = await supabase
@@ -72,7 +82,7 @@ const SubmitPet = ({ session }) =>{
                 .single()
 
             if (error){
-                throw new Error(error.message);
+                setError(error.message);
             }
 
             if (data) {
@@ -88,7 +98,7 @@ const SubmitPet = ({ session }) =>{
             }
 
             } catch (error) {
-                alert(error.message);
+                setError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -107,7 +117,6 @@ const SubmitPet = ({ session }) =>{
                 setOwnerId(owners[0].id);
             }
             console.log("Owner ID: " + owner_id);
-
 
             let updates = {
                 name: name,
@@ -128,11 +137,9 @@ const SubmitPet = ({ session }) =>{
                 })
 
             if (pets_error){
-                throw error
+                console.log(pets_error);
             }
 
-            } catch (error) {
-                alert(error.message);
             } finally {
                 setLoading(false);
             }
@@ -255,16 +262,6 @@ const SubmitPet = ({ session }) =>{
                                 name="weight"
                                 value={weight}
                                 onChange={e => setWeight(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="breed">Breed</label>
-                            <input
-                                type="text"
-                                id="breed"
-                                name="breed"
-                                value={breed}
-                                onChange={e => setBreed(e.target.value)}
                             />
                         </div>
                         <div>
