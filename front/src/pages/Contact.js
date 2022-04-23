@@ -4,7 +4,7 @@ import dogPhone from '../components/images/dogPhone.png'
 
 const Contact = () => {
   return (
-    <div className="contact-page">
+    <div className="contact-page" style={{alignItems:"center", background:"white"}}>
 
     <h1>CONTACT</h1>
         <div style={{display: "flex", alignItems:"center"}}>

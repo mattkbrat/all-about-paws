@@ -10,7 +10,7 @@ export function ItemsContextProvider(props) {
     const [adding, setAdding] = useState(false);
     const [appointments, setAppointments] = useState([]);
     const [pets, setPets] = useState([]);
-    const [client, setClient] = useState(null);
+    const [client, setClient] = useState([]);
     const [error, setError] = useState(null);
 
 
@@ -93,13 +93,15 @@ export function ItemsContextProvider(props) {
 
             let { data: profile, error } = await supabase
                 .from('profiles')
-                .select('*')
+                .select('id, first_name, last_name, street_address, city_address, state_address, zip_address, phone_no, avatar_url, is_admin, is_groomer')
                 .eq('id', client.id)
+
+            console.log("Client id: ", client.id)
 
             if (error) throw error; // Throw error if there is one
 
-            setClient(profile)
             console.log("Tried to fetch logged in profile. Result: ", profile);
+            setClient(profile)
 
         } catch (error) {
             console.log(error.message)
@@ -214,14 +216,13 @@ export function ItemsContextProvider(props) {
             let { data: response, _ } = await supabase
                 .from('appointments')
                 .select('event_id, start, status, end, pet_id, ' +
-                    'pets (owner_id, special_instructions, name, profiles (first_name, last_name))')
+                    'pets!inner(*)')
                 .eq('pets.owner_id', user.id)
 
             console.log("Tried to fetch client appointments. Result: ", response);
 
-
             // Set the active appointments
-            setAppointments(appointmentParser(response));
+            setAppointments(response);
 
         } catch (error) {
             console.log(error.message)
@@ -273,7 +274,7 @@ export function ItemsContextProvider(props) {
                         status: event.status,
                         end: event.end,
                         start: event.start,
-                        client_id: supabase.auth.user().id,
+                        scheduler_id: supabase.auth.user().id,
                 })
 
                 if (error) throw error; // Throw error if there is one

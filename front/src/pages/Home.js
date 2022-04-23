@@ -1,14 +1,18 @@
 import React, {useContext, useEffect} from 'react';
 import '../components/Header.css';
+import '../components/Home.css'
 import {supabase} from "../client";
 import { SupabaseContext } from "../SupabaseContext";
 
+
 function Home() {
-    const { loading, appointments, fetchClientAppointments} = useContext(SupabaseContext);
+    const { loading, appointments, client, fetchClientAppointments, fetchClient} = useContext(SupabaseContext);
 
     useEffect(() => {
-        supabase.auth.user() !== null && fetchClientAppointments();
+        supabase.auth.user() !== null && fetchClientAppointments() && fetchClient();
         console.log(supabase.auth.user())
+        console.log("Appointments: ", appointments)
+        console.log("Client: " + client)
 
     }, []);
 
@@ -24,39 +28,38 @@ function Home() {
                     :
                     <div>
                     <div>
-                        Welcome Home{
-                            supabase.auth.session() && appointments.length ?
-                                <>
-                                    , {appointments[0].first_name}.
-                                    <div>
-                                        <h1>Your Appointments</h1>
-                                        <table className="table">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col">Date</th>
-                                                <th scope="col">Status</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {appointments.map(appointment => (
-                                                <tr key={appointment.event_id}>
-                                                    <td>{String(appointment.start)}</td>
-                                                    <td>{appointment.status}</td>
-                                                </tr>
-                                            ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                </>
-                                : <p>
-
-                                </p>
-                        }
+                        <h1>Welcome. Please contact All About Paws to inquire about set appointments.</h1>
                     </div>
+                        <div>
+                            {supabase.auth.session() && appointments.length ? <>
+                            <div>
+                                <table className="table">
+                                    <caption>Your Appointments</caption>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Start</th>
+                                        <th scope="col">End</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {appointments.map(appointment => (
+                                        <tr key={appointment.event_id}>
+                                            <td>{appointment.event_id.split('-')[4]}</td>
+                                            <td>{String(appointment.start)}</td>
+                                            <td>{String(appointment.end)}</td>
+                                            <td>{appointment.status == 1 ? "Confirmed" : "Pending"}</td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                    </div>
-                }
+                        </>
+                            : <h1>You have no appointments</h1>}
+                        </div>
+                    </div>}
             </div>
         </div>
     );
