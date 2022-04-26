@@ -4,7 +4,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 Check the package.json file to see what other scripts are available and the dependencies.
 To install the depdencies, run the following command:
-```npm install```.
+```npm install```. 
+Some devices will fail to install the dependencies with the default command. In these cases, install with ```npm install --legacy-peer-deps```.
 
 ### Available Scripts
 
@@ -19,6 +20,10 @@ You may also see any lint errors in the console.
 ## Getting started with database
 This app depends on supabase for authentication and database (PostgreSQL).
 To obtain the .env file, contact the project owner. Place the .env file in ./front
+Please note that you might have to rename the file upon download. The project is expecting the file to be named ```.env.local```.
+
+## Known bugs
+Sometimes you will have to refresh the page, especially if React is stuck in a loading screen or failing to update.
 
 ### Database Setup
 *WIP*
